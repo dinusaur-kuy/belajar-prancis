@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruang Belajar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1b2559; --ink-soft:#4a5380; --paper:#fafbff; --card:#ffffff;
+  --sky:#e6ecff; --line:#d5dcf5; --sun:#ffc93c; --sun-dark:#e6a800; --on-sun:#1b2559;
+  --radius:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root{--ink:#eef1ff; --ink-soft:#aab3e0; --paper:#0f1430; --card:#171e45; --sky:#1e2757; --line:#2c3670; --on-sun:#1b2559;}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+/* Header */
+header{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-weight:800;font-size:1.15rem;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand i{width:26px;height:26px;border-radius:7px;background:var(--sun);display:inline-block;position:relative}
+.brand i::after{content:"";position:absolute;left:6px;right:6px;top:8px;height:2px;background:var(--on-sun);box-shadow:0 5px 0 var(--on-sun),0 10px 0 var(--on-sun)}
+nav a{text-decoration:none;font-weight:500;padding:8px 14px;border-radius:999px;color:var(--ink-soft)}
+nav a:hover{background:var(--sky)}
+nav a.aktif{background:var(--sky);color:var(--ink);font-weight:700}
+
+/* Tombol */
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:inherit;font-weight:700;text-decoration:none;padding:14px 26px;border-radius:999px;background:var(--sun);color:var(--on-sun);box-shadow:0 4px 0 var(--sun-dark);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(2px);box-shadow:0 2px 0 var(--sun-dark)}
+.btn:active{transform:translateY(4px);box-shadow:0 0 0 var(--sun-dark)}
+.btn.garis{background:transparent;color:var(--ink);box-shadow:none;border:2px solid var(--ink);padding:12px 22px}
+.btn.garis:hover{background:var(--sky);transform:none}
+
+/* Beranda */
+.hero{padding:72px 0 56px;background-image:repeating-linear-gradient(to bottom,transparent 0 39px,var(--line) 39px 40px)}
+.hero .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.2rem,5.5vw,3.8rem);line-height:1.08;margin:0 0 18px;font-weight:800;letter-spacing:-.02em}
+.hero p{font-size:1.1rem;color:var(--ink-soft);max-width:46ch;margin:0 0 28px}
+.hero .aksi{display:flex;flex-wrap:wrap;gap:14px}
+.hero .catatan{background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);padding:22px 24px;transform:rotate(1.5deg);box-shadow:8px 8px 0 var(--sun)}
+.hero .catatan h2{margin:0 0 10px;font-size:1rem}
+.hero .catatan ol{margin:0;padding-left:20px;color:var(--ink-soft)}
+.hero .catatan li{padding:3px 0}
+.hero .catatan b{color:var(--ink)}
+.alur{padding:56px 0}
+.alur h2,.daftar h2{font-size:1.6rem;margin:0 0 24px}
+.langkah{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.langkah div{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.langkah strong{display:block;font-size:1.05rem;margin-bottom:6px}
+.langkah span{color:var(--ink-soft);font-size:.95rem}
+
+/* Daftar materi */
+.daftar{padding:48px 0 72px}
+.daftar .sub{color:var(--ink-soft);margin:-14px 0 28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.kartu{display:flex;flex-direction:column;text-align:left;font:inherit;color:inherit;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;transition:border-color .15s,transform .15s}
+.kartu:hover{border-color:var(--ink);transform:translateY(-3px)}
+.kartu .no{align-self:flex-start;background:var(--sky);font-weight:700;font-size:.85rem;padding:3px 12px;border-radius:999px;margin-bottom:14px}
+.kartu h3{margin:0 0 8px;font-size:1.15rem;line-height:1.3}
+.kartu p{margin:0 0 16px;color:var(--ink-soft);font-size:.95rem;flex:1}
+.kartu .ikon{font-size:.85rem;font-weight:500;color:var(--ink-soft)}
+
+/* Detail materi */
+.detail{padding:36px 0 80px}
+.kembali{background:none;border:0;font:inherit;font-weight:500;color:var(--ink-soft);cursor:pointer;padding:6px 0;margin-bottom:18px}
+.kembali:hover{color:var(--ink);text-decoration:underline}
+.detail h1{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.15;margin:0 0 10px;letter-spacing:-.01em}
+.detail .desk{color:var(--ink-soft);max-width:62ch;margin:0 0 32px}
+.bagian{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:22px}
+.bagian h2{display:flex;align-items:center;gap:12px;margin:0 0 6px;font-size:1.25rem}
+.bagian h2 b{width:32px;height:32px;border-radius:50%;background:var(--sun);color:var(--on-sun);display:grid;place-items:center;font-size:.95rem}
+.bagian>p{margin:0 0 18px;color:var(--ink-soft)}
+.bagian .baris{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+.bingkai{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--sky)}
+.pdf{height:560px}
+.video{aspect-ratio:16/9}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.vid h3{margin:10px 0 0;font-size:1rem}
+.thumb{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;padding:0;cursor:pointer;border-radius:10px;overflow:hidden;background:var(--sky)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .play{position:absolute;inset:0;display:grid;place-items:center;background:rgba(15,20,48,.25);transition:background .15s}
+.thumb:hover .play{background:rgba(15,20,48,.5)}
+.thumb .play span{width:60px;height:60px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.thumb .play span::before{content:"";margin-left:5px;border-left:19px solid var(--on-sun);border-top:12px solid transparent;border-bottom:12px solid transparent}
+
+/* Jendela melayang */
+dialog.modal{border:0;padding:0;border-radius:16px;background:var(--card);color:var(--ink);width:min(960px,94vw);max-height:94vh;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+dialog.modal::backdrop{background:rgba(10,14,36,.72)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.modal-head strong{font-size:1rem;line-height:1.3}
+.modal-aksi{display:flex;gap:8px;flex-shrink:0}
+.btn.kecil{padding:7px 14px;font-size:.88rem;border-width:1.5px}
+#mTab[hidden]{display:none}
+.modal-body iframe{display:block;width:100%;border:0;background:#fff}
+.modal-body.video iframe{aspect-ratio:16/9;background:#000}
+.modal-body.kuis iframe{height:min(78vh,740px)}
+.kosong{padding:18px;border:2px dashed var(--line);border-radius:10px;color:var(--ink-soft);text-align:center}
+.kuis{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.navbawah{display:flex;justify-content:space-between;gap:12px;margin-top:30px}
+
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--ink-soft);font-size:.9rem;text-align:center}
+
+@media (max-width:760px){
+  .hero{padding:44px 0 40px}
+  .hero .wrap{grid-template-columns:1fr}
+  .langkah{grid-template-columns:1fr}
+  .pdf{height:420px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#beranda"><i></i><span id="namaSitus"></span></a>
+    <nav>
+      <a href="#beranda" id="nav-beranda">Beranda</a>
+      <a href="#materi" id="nav-materi">Materi</a>
+    </nav>
+  </div>
+</header>
+
+<main id="app" tabindex="-1"></main>
+
+<footer><div class="wrap" id="footerTeks"></div></footer>
+
+<script>
+/* =====================================================
+   EDIT BAGIAN INI SAJA — isi dengan data milikmu
+   ===================================================== */
+const SITUS = {
+  nama: "Apprendre le français",
+  judul: "Belajar bahasa Prancis dari dasar, selangkah demi selangkah.",
+  deskripsi: "Baca materi, tonton video penjelasan, lalu uji pemahamanmu lewat kuis. Semua ada di satu tempat.",
+  footer: "© 2026 Apprendre le français · Niveau A1"
+};
+
+/* Tambah / hapus blok { ... } sesuai jumlah materi.
+   - pdf     : nama file PDF (mis. "pdf/bab1.pdf") ATAU link Google Drive (…/view)
+   - youtube : satu link, atau beberapa link dalam tanda [ ... ] dipisah koma
+   - kuis    : link kuis  */
+const MATERI = [
+  {
+    judul: "Les Nationalités: Kebangsaan",
+    deskripsi: "Mengenal 25 negara beserta kebangsaannya dalam bentuk maskulin dan feminin, pola pembentukannya, preposisi negara, dan dialog perkenalan diri.",
+    pdf: "pdf/materi-nationalites.pdf",
+    youtube: [
+      "https://youtu.be/ZYiLc-AGh88",
+      "https://youtu.be/L0Kdr59HLlk",
+      "https://youtu.be/z6D-PjRstzs",
+      "https://youtu.be/fFG03pQhr1w"
+    ],
+    kuis: "https://rieexyl7-maker.github.io/Projet-0/"
+  }
+];
+/* ===================== SELESAI EDIT ===================== */
+
+
+const app = document.getElementById("app");
+document.getElementById("namaSitus").textContent = SITUS.nama;
+document.getElementById("footerTeks").textContent = SITUS.footer;
+document.title = SITUS.nama;
+
+/* Jendela melayang (pop-up) untuk video dan kuis */
+const dlg = document.createElement("dialog");
+dlg.className = "modal";
+dlg.innerHTML = `<div class="modal-head"><strong id="mJudul"></strong>
+  <div class="modal-aksi">
+    <a id="mTab" class="btn garis kecil" target="_blank" rel="noopener" hidden>Buka di tab baru</a>
+    <button class="btn garis kecil" id="mTutup" type="button">Tutup ✕</button>
+  </div></div><div class="modal-body" id="mBody"></div>`;
+document.body.appendChild(dlg);
+const mJudul = dlg.querySelector("#mJudul"), mBody = dlg.querySelector("#mBody"), mTab = dlg.querySelector("#mTab");
+function bukaModal(judul, src, jenis, tab){
+  mJudul.textContent = judul;
+  mBody.className = "modal-body " + jenis;
+  mBody.innerHTML = `<iframe src="${src}" title="${judul}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+  if(tab){ mTab.href = tab; mTab.hidden = false; } else { mTab.hidden = true; }
+  dlg.showModal();
+}
+function putarVideo(id, n){ bukaModal("Video " + n, "https://www.youtube.com/embed/" + id + "?autoplay=1&rel=0", "video"); }
+function bukaKuis(i){ const m = MATERI[i]; bukaModal("Kuis: " + m.judul, m.kuis, "kuis", m.kuis); }
+dlg.querySelector("#mTutup").addEventListener("click", () => dlg.close());
+dlg.addEventListener("click", e => { if(e.target === dlg) dlg.close(); });
+dlg.addEventListener("close", () => { mBody.innerHTML = ""; });  // menghentikan video saat ditutup
+
+function idYoutube(url){
+  const m = (url||"").match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);
+  return m ? m[1] : null;
+}
+function urlPdf(url){
+  // Link Google Drive diubah ke mode pratinjau agar bisa ditampilkan
+  const d = (url||"").match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+  return d ? "https://drive.google.com/file/d/" + d[1] + "/preview" : url;
+}
+
+function beranda(){
+  app.innerHTML = `
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>${SITUS.judul}</h1>
+        <p>${SITUS.deskripsi}</p>
+        <div class="aksi">
+          <a class="btn" href="#materi">Mulai belajar</a>
+          <a class="btn garis" href="#alur">Lihat caranya</a>
+        </div>
+      </div>
+      <aside class="catatan">
+        <h2>Isi setiap materi</h2>
+        <ol>
+          <li><b>Bacaan</b> dalam bentuk PDF</li>
+          <li><b>Video</b> penjelasan</li>
+          <li><b>Kuis</b> untuk mengecek pemahaman</li>
+        </ol>
+      </aside>
+    </div>
+  </section>
+  <section class="alur" id="alur">
+    <div class="wrap">
+      <h2>Cara belajar di sini</h2>
+      <div class="langkah">
+        <div><strong>1. Baca materinya</strong><span>Buka PDF dan pahami konsep dasarnya lebih dulu.</span></div>
+        <div><strong>2. Tonton videonya</strong><span>Lihat penjelasan dan contoh agar lebih mudah dimengerti.</span></div>
+        <div><strong>3. Kerjakan kuisnya</strong><span>Ukur seberapa paham kamu, lalu ulangi bagian yang masih sulit.</span></div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function daftar(){
+  app.innerHTML = `
+  <section class="daftar">
+    <div class="wrap">
+      <h2>Pilih materi</h2>
+      <p class="sub">Ada ${MATERI.length} materi. Klik salah satu untuk mulai.</p>
+      <div class="grid">
+        ${MATERI.map((m,i)=>`
+          <button class="kartu" onclick="location.hash='#materi-${i+1}'">
+            <span class="no">Materi ${i+1}</span>
+            <h3>${m.judul}</h3>
+            <p>${m.deskripsi}</p>
+            <span class="ikon">PDF &nbsp;•&nbsp; Video &nbsp;•&nbsp; Kuis</span>
+          </button>`).join("")}
+      </div>
+    </div>
+  </section>`;
+}
+
+function detail(i){
+  const m = MATERI[i];
+  if(!m){ location.hash = "#materi"; return; }
+  const vids = [].concat(m.youtube||[]).map(u=>({u,id:idYoutube(u)})).filter(v=>v.id);
+  const pdf = urlPdf(m.pdf);
+  const prev = MATERI[i-1], next = MATERI[i+1];
+  app.innerHTML = `
+  <section class="detail">
+    <div class="wrap">
+      <button class="kembali" onclick="location.hash='#materi'">&larr; Semua materi</button>
+      <h1>${m.judul}</h1>
+      <p class="desk">${m.deskripsi}</p>
+
+      <div class="bagian">
+        <h2><b>1</b> Baca materi</h2>
+        <p>Pelajari bahan bacaan berikut sebelum menonton video.</p>
+        ${m.pdf ? `<iframe class="bingkai pdf" src="${pdf}" title="Materi PDF"></iframe>
+        <div class="baris"><a class="btn garis" href="${m.pdf}" target="_blank" rel="noopener">Buka PDF di tab baru</a></div>`
+        : `<div class="kosong">PDF belum tersedia.</div>`}
+      </div>
+
+      <div class="bagian">
+        <h2><b>2</b> Tonton video</h2>
+        <p>Klik video untuk memutarnya di jendela melayang. Tonton secara berurutan.</p>
+        ${vids.length ? `<div class="vgrid">`+vids.map((v,k)=>`<div class="vid">
+          <button class="thumb" onclick="putarVideo('${v.id}',${k+1})" aria-label="Putar Video ${k+1}">
+            <img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt="" loading="lazy">
+            <span class="play"><span></span></span>
+          </button>
+          <h3>Video ${k+1}</h3>
+        </div>`).join("")+`</div>` : `<div class="kosong">Video belum tersedia.</div>`}
+      </div>
+
+      <div class="bagian">
+        <h2><b>3</b> Kerjakan kuis</h2>
+        <div class="kuis">
+          <p style="margin:0">Sudah membaca dan menonton? Uji pemahamanmu sekarang.</p>
+          ${m.kuis ? `<button class="btn" onclick="bukaKuis(${i})">Mulai kuis</button>` : `<span class="kosong">Kuis belum tersedia.</span>`}
+        </div>
+      </div>
+
+      <div class="navbawah">
+        ${prev ? `<button class="btn garis" onclick="location.hash='#materi-${i}'">&larr; Materi ${i}</button>` : `<span></span>`}
+        ${next ? `<button class="btn garis" onclick="location.hash='#materi-${i+2}'">Materi ${i+2} &rarr;</button>` : `<span></span>`}
+      </div>
+    </div>
+  </section>`;
+}
+
+function rute(){
+  if(dlg.open) dlg.close();
+  const h = location.hash.replace("#","") || "beranda";
+  const d = h.match(/^materi-(\d+)$/);
+  document.getElementById("nav-beranda").classList.toggle("aktif", h==="beranda" || h==="alur");
+  document.getElementById("nav-materi").classList.toggle("aktif", h==="materi" || !!d);
+  if(h==="alur"){ if(!document.getElementById("alur")) beranda(); document.getElementById("alur").scrollIntoView(); return; }
+  if(d) detail(parseInt(d[1],10)-1);
+  else if(h==="materi") daftar();
+  else beranda();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", rute);
+rute();
+</script>
+</body>
+</html>
